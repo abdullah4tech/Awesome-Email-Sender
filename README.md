@@ -37,7 +37,7 @@ Make sure you have the following installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/awesome-email-sender.git
+   git clone https://github.com/abdullahCoder-Tech/awesome-email-sender.git
    ```
 
 2. Navigate to the project folder:
