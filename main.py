@@ -9,26 +9,35 @@ from email.mime.multipart import MIMEMultipart
 class MyMainWindow(QMainWindow):
     def __init__(self):
         super(MyMainWindow, self).__init__()
+        
+        # Load the user interface from the form.ui file
         uic.loadUi("form.ui", self)
         self.show()
 
+        # Set a fixed size to the main window
         self.setFixedSize(self.size())
 
+        # Connect buttons to corresponding methods
         self.pushButton.clicked.connect(self.login)
         self.pushButton_2.clicked.connect(self.attach_something)
         self.pushButton_3.clicked.connect(self.send_mail)
 
     def login(self):
         try:
+            # Set up SMTP connection
             self.server = smtplib.SMTP(self.lineEdit_3.text(), self.lineEdit_4.text())
             self.server.ehlo()
             self.server.starttls()
             self.server.ehlo()
             self.server.login(self.lineEdit.text(), self.lineEdit_2.text())
 
+            # Disable login fields after successful login
             self.disable_login_fields()
+            
+            # Enable mail fields for composing the message
             self.enable_mail_fields()
 
+            # Initialize the email message object
             self.msg = MIMEMultipart()
 
         except smtplib.SMTPAuthenticationError:
@@ -39,11 +48,13 @@ class MyMainWindow(QMainWindow):
             self.show_error("Login Failed", f"Error: {str(e)}")
 
     def disable_login_fields(self):
+        # Disable login-related input fields
         fields_to_disable = [self.lineEdit, self.lineEdit_2, self.lineEdit_3, self.lineEdit_4, self.pushButton]
         for field in fields_to_disable:
             field.setEnabled(False)
 
     def enable_mail_fields(self):
+        # Enable mail-related input fields
         fields_to_enable = [self.lineEdit_5, self.lineEdit_6, self.textEdit, self.pushButton_2, self.pushButton_3]
         for field in fields_to_enable:
             field.setEnabled(True)
