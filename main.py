@@ -130,6 +130,7 @@ class MyMainWindow(QMainWindow):
             raise Exception(f"SMTP Error: {str(smtp_error)}")
 
 if __name__ == "__main__":
+    # Create and execute the application
     app = QApplication([])
     window = MyMainWindow()
     window.show()
